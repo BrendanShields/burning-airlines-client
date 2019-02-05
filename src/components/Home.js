@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 
 import List from './List'
 import Nav from './Nav'
-import Search from './Search'
+import SearchFlight from './SearchFlight';
 
 class Home extends Component {
 
@@ -11,7 +11,7 @@ class Home extends Component {
     return (
       <div>
       <Nav />
-      <p> Home Page </p>
+      < SearchFlight />
       </div>
     )
   }

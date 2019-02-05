@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 class Search extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -25,6 +26,7 @@ class Search extends Component {
         <input type="submit" value="find flights!"/>
 
       </div>
+
     )
   }
 }

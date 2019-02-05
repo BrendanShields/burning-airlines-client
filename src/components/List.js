@@ -6,7 +6,6 @@ class List extends Component {
   render () {
     return (
       <div>
-      < Nav />
       <p> List Page </p>
       </div>
     )
