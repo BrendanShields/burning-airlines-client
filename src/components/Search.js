@@ -5,26 +5,44 @@ class Search extends Component {
   constructor() {
     super();
     this.state = {
-      query: "",
+      origin: "",
+      destination: "",
     }
-    this._handleSubmit = this._handleSubmit.bind(this);
+    this._handleOriginInput = this._handleOriginInput.bind(this);
+    this._handleDestinationInput = this._handleDestinationInput.bind(this);
+    this._handleSumbit = this._handleSumbit.bind(this);
   }
 
-  _handleSubmit(e){
+  _handleOriginInput(e){
+    console.log(e.target.value);
+    this.setState({origin: e.target.value});
+  }
 
+  _handleDestinationInput(e){
+    console.log(e.target.value);
+    this.setState({destination: e.target.value});
+  }
+
+  _handleSumbit(e){
+    e.preventDefault();
+    this.props.onSubmit(this.state.origin)
   }
 
   render () {
     return (
       <div>
         <h1> Where do you want to head next? </h1>
-
-        <label> Origin </label>
-        <input type="search" placeholder="Sydney" />
-        <label> Destination </label>
-        <input type="search" placeholder="Melbourne" />
-        <input type="submit" value="find flights!"/>
-
+        <form onSubmit={ this._handleSumbit }>
+          <div>
+            <label> Origin </label>
+            <input type="search" placeholder="Sydney" required onChange={ e => this._handleOriginInput(e) }/>
+          </div>
+          <div>
+            <label> Destination </label>
+            <input type="search" placeholder="Melbourne" required onChange={ e => this._handleDestinationInput(e) }/>
+          </div>
+          <input type="submit" value="find flights!"/>
+        </form>
       </div>
 
     )
