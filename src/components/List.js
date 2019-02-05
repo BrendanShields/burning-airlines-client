@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
 
 class List extends Component {
+
   render () {
     return (
-      <h1> return list results </h1>
+      <div>
+        <h2> Flight list coming soon </h2>
+      </div>
     )
   }
 }
