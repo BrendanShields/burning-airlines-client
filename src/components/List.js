@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import Nav from './Nav'
 
 class List extends Component {
   render () {
     return (
-      <h1> return list results </h1>
+      <div>
+      <p> List Page </p>
+      </div>
     )
   }
 }
