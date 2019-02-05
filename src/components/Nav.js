@@ -1,41 +1,23 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom';
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
-
-const Index = () => <h2>Home</h2>;
-const About = () => <h2>Flights</h2>;
-const Users = () => <h2>User</h2>;
-
+import Home from './Home'
+import Search from './FlightSearch'
+import List from './List'
 
 class Nav extends Component {
+
   render () {
     return (
+      <div>
+      <Link to="/">home </Link>
+      <Link to="/search">search </Link>
+      <Link to="/list">list </Link>
 
-        <Router>
-          <div>
-            <nav>
-              <ul>
-                <li>
-                  <Link to="/">Home</Link>
-                </li>
-                <li>
-                  <Link to="/about/">About</Link>
-                </li>
-                <li>
-                  <Link to="/users/">Users</Link>
-                </li>
-              </ul>
-            </nav>
 
-            <Route path="/" exact component={Index} />
-            <Route path="/about/" component={About} />
-            <Route path="/users/" component={Users} />
-          </div>
-        </Router>
-
-      );
-    }
+      </div>
+    )
   }
+}
 
-      export default Nav;
+export default Nav;

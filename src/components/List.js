@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import Nav from './Nav'
 
 class List extends Component {
 
   render () {
     return (
       <div>
-        <h2> Flight list coming soon </h2>
+      < Nav />
+      <p> List Page </p>
       </div>
     )
   }
