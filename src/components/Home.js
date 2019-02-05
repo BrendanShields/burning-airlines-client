@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import '../App.css';
 
 import List from './List'
 import Nav from './Nav'
