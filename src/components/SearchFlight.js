@@ -16,7 +16,10 @@ class SearchFlight extends Component{
     this.state = {
       flights: [],
       seats: [],
-      current_seats: []
+      current_seats: [],
+      current_flights: [],
+      origin: "",
+      destination: "",
     }
 
     //function to retrieve the JSON data from rails API and process into arrays
@@ -35,10 +38,47 @@ class SearchFlight extends Component{
     fetchSeats();
 
     // Binding the functions to this
+    this._handleOriginInput = this._handleOriginInput.bind(this);
+    this._handleDestinationInput = this._handleDestinationInput.bind(this);
+    this._handleSumbit = this._handleSumbit.bind(this);
     this._activateLasers = this._activateLasers.bind(this);
     this._handleClick = this._handleClick.bind(this);
     this.saveSeats = this.saveSeats.bind(this);
   }
+    // Form Origin input handler
+    _handleOriginInput(e){
+      console.log(e.target.value);
+      this.setState({origin: e.target.value});
+    }
+
+    // Form Destination input handler
+    _handleDestinationInput(e){
+      console.log(e.target.value);
+      this.setState({destination: e.target.value});
+    }
+
+    // Form Submit handler
+    _handleSumbit(e){
+      e.preventDefault(e);
+    const current_flights = this.state.flights.filter( (el, index) => {
+      return el.origin === this.state.origin && el.destination === this.state.destination;
+    })
+    this.setState({ current_flights: current_flights })
+      console.log(current_flights)
+      console.log(this.state.origin)
+      console.log(this.state.destination)
+    }
+
+
+    // _activateLasers(flight_seats){
+    //       console.log(flight_seats)
+    //       const current_seats = this.state.seats.filter( function( el, index ) {
+    //              return el.flight_id === flight_seats;
+    //          });
+    //       console.log("current seats array", current_seats);
+    //       this.setState({ current_seats: current_seats })
+    //       console.log("state", this.state.current_seats)
+    //     }
 
   // Runs the saveSeats function
   _handleClick(seat_id){
@@ -73,14 +113,35 @@ class SearchFlight extends Component{
   // RENDERS THE VIEW //////////////////////////////////////////////////////////
   render () {
     return (
+
+
+
+
+
       <div>
-        {this.state.flights.map((s) =>
+
+
+      <h1> Where do you want to head next? </h1>
+      <form onSubmit={ this._handleSumbit }>
+        <div>
+          <label> Origin </label>
+          <input type="search" placeholder="Sydney" required onChange={ e => this._handleOriginInput(e) }/>
+        </div>
+        <div>
+          <label> Destination </label>
+          <input type="search" placeholder="Melbourne" required onChange={ e => this._handleDestinationInput(e) }/>
+        </div>
+        <input type="submit" value="find flights!"/>
+      </form>
+
+
+        {this.state.current_flights.map((s) =>
           <div className="square" key={s.id}  onClick={() =>
             this._activateLasers(s.id)}>
               Flight {s.id}  From {s.origin} to {s.destination} on {s.date}
             </div>
           )}
-        <hr />
+
 
        { this.state.current_seats.map( (s) =>
           <div className="square" key={s.id} onClick={() =>

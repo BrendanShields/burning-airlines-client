@@ -7,6 +7,7 @@ import List from './components/List';
 import SeatsPanel from './components/SeatsPanel';
 import Seats from './components/Seats'
 import SearchFlight from './components/SearchFlight'
+import Search from './components/Search'
 
 import Reservation from './components/Reservation';
 
@@ -15,6 +16,7 @@ const Routes = (
     <div>
       <Route exact path="/" component={ Home } />
       <Route exact path="/search" component={ SearchFlight } />
+      <Route exact path="/searchflights" component={ Search } />
       <Route path="/list" component={ List } />
       <Route path="/book" component={ Reservation } />
       <Route path="/seats" component={ Seats } />
