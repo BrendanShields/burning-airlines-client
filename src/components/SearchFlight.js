@@ -17,7 +17,8 @@ class SearchFlight extends Component{
     //creates an array that the flights will be passed into
     this.state = {
       flights: [],
-      seats: []
+      seats: [],
+      current_seats: []
     }
     //function to retrieve the data from the server
     const fetchFlights = () => {
@@ -43,12 +44,23 @@ class SearchFlight extends Component{
 
       _activateLasers(flight_seats){
 
+        console.log(flight_seats)
+        const current_seats = this.state.seats.filter( function( el, index ) {
+               return el.flight_id === flight_seats;
+           });
 
-        this.state.seats.map( (seat) =>{
-        if (seat.flight_id == flight_seats) {
-          console.log(seat)
-        }
-        })
+      // this.state.seats.map( (seat) =>{
+      //   if (seat.flight_id == flight_seats) {
+      // this.setState({current_seats: seat})
+      //   }
+      //   })
+        console.log("current seats array", current_seats);
+      // const current_seats = this.state.seats.filter(function(){
+      //   return seat.flight_id == flight_seats;
+      // })
+        this.setState({ current_seats: current_seats })
+        console.log("state", this.state.current_seats)
+      //   console.log(current_seats)
       }
 
 
