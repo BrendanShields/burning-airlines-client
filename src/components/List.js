@@ -44,7 +44,7 @@ class List extends Component {
       axios.get(FLIGHTS_URL).then( (results) => {
 
         this.setState({ flights: results.data })
-        console.log(results.data[0].origin)
+
       })
     }
     fetchFlights();
