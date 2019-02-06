@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 
 import axios from 'axios'
 
-const SERVER_URL = 'https://burning-airlines-backend.herokuapp.com/flights.json';
+const FLIGHTS_URL = 'https://burning-airlines-backend.herokuapp.com/flights.json';
+
 
 // class List extends Component {
 //
@@ -40,17 +41,28 @@ class List extends Component {
     }
     //function to retrieve the data from the server
     const fetchFlights = ( ) => {
-      axios.get(SERVER_URL).then( (results) => {
-        console.log(results)
-        // this.setState({ flights: results.data })
+      axios.get(FLIGHTS_URL).then( (results) => {
+
+        this.setState({ flights: results.data })
+        console.log(results.data[0].origin)
       })
     }
-    fetchFlights()
+    fetchFlights();
   }
+
 
   render () {
     return (
-      <h1> {this.state.flights} </h1>
+      <div>
+
+    { this.state.flights.map( (s) =>
+    <a key={s.id} href="#">
+
+    Flight {s.id}  From {s.origin} to {s.destination} on {s.date}
+
+    </a> )}
+
+     </div>
     )
   }
 }

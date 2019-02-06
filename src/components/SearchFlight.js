@@ -24,6 +24,7 @@ class SearchFlight extends Component{
       < Search onSubmit={(f)=>this.SearchFlight(f)}/>
       < List />
 
+
       </div>
     );
   }
