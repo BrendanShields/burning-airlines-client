@@ -30,7 +30,7 @@ class Search extends Component {
 
   render () {
     return (
-      <div>
+      <div className>
         <h1> Where do you want to head next? </h1>
         <form onSubmit={ this._handleSumbit }>
           <div>

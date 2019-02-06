@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import '../App.css';
 /////////////////// IMPORT COMPONENTS //////////////////////////////////////////
 import Search from './Search'
 import List from './List'
@@ -71,18 +72,6 @@ class SearchFlight extends Component{
       console.log(this.state.destination)
     }
 
-
-    // _activateLasers(flight_seats){
-    //       console.log(flight_seats)
-    //       const current_seats = this.state.seats.filter( function( el, index ) {
-    //              return el.flight_id === flight_seats;
-    //          });
-    //       console.log("current seats array", current_seats);
-    //       this.setState({ current_seats: current_seats })
-    //       console.log("state", this.state.current_seats)
-    //     }
-
-  // Runs the saveSeats function
   _handleClick(seat_id){
     this.saveSeats(seat_id);
   };
@@ -116,26 +105,19 @@ class SearchFlight extends Component{
   render () {
     return (
 
-
-
-
-
-      <div>
-
-
+      <div className="wrap">
       <h1> Where do you want to head next? </h1>
-      <form onSubmit={ this._handleSumbit }>
-        <div>
+      <form className="grid" onSubmit={ this._handleSumbit }>
+        <div className="search">
           <label> Origin </label>
-          <input type="search" placeholder="Sydney" required onChange={ e => this._handleOriginInput(e) }/>
+          <input type="search" className="searchTerm1" placeholder="Sydney" required onChange={ e => this._handleOriginInput(e) }/>
         </div>
-        <div>
+        <div className="search">
           <label> Destination </label>
-          <input type="search" placeholder="Melbourne" required onChange={ e => this._handleDestinationInput(e) }/>
+          <input type="search" className="searchTerm2"  placeholder="Melbourne" required onChange={ e => this._handleDestinationInput(e) }/>
         </div>
-        <input type="submit" value="find flights!"/>
+        <input type="submit" className="searchButton" value="find flights!"/>
       </form>
-
 
         {this.state.current_flights.map((s) =>
           <div className="square" key={s.id}  onClick={() =>
@@ -144,8 +126,7 @@ class SearchFlight extends Component{
             </div>
           )}
 
-
-       { this.state.current_seats.map( (s) =>
+          {this.state.current_seats.map( (s) =>
           <div className="square" key={s.id} onClick={() =>
             this._handleClick(s.id)}>Seat ID: {s.id} user_id: {s.user_id}
           </div>
