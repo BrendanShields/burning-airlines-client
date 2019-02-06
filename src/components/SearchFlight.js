@@ -61,9 +61,11 @@ class SearchFlight extends Component{
     _handleSumbit(e){
       e.preventDefault(e);
     const current_flights = this.state.flights.filter( (el, index) => {
-      return el.origin === this.state.origin && el.destination === this.state.destination;
+      return el.origin.toLowerCase() === this.state.origin.toLowerCase() && el.destination.toLowerCase() === this.state.destination.toLowerCase();
     })
+    this.setState({ current_seats: [] })
     this.setState({ current_flights: current_flights })
+
       console.log(current_flights)
       console.log(this.state.origin)
       console.log(this.state.destination)
