@@ -39,6 +39,7 @@ class SeatsPanel extends Component {
     console.log(this.state.data.filter(item => item != null ));
   }
   handleClick(i) {
+<<<<<<< HEAD
     // const squares = this.state.seats.slice();
     // squares[i] = this.state.seats;
     // this.setState({seats: squares});
@@ -48,6 +49,11 @@ class SeatsPanel extends Component {
     seats[i] = 'B';
     this.setState({data: seats});
     console.log(this.state.data);
+=======
+    const squares = this.state.seats.slice();
+    squares[i] = 'Booked';
+    this.setState({seats: squares});
+>>>>>>> cd89ca04706c87e2241c538bd4782385347df9c4
   }
   renderSeats(i,val){
     // console.log(this.state.seats);val === null ? '' : val

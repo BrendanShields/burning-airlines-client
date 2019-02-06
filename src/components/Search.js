@@ -24,8 +24,8 @@ class Search extends Component {
   }
 
   _handleSumbit(e){
-    e.preventDefault();
-    this.props.onSubmit(this.state.origin)
+    e.preventDefault(e);
+    this.props.onSubmit(this.state.origin, this.state.destination) /// UNSURE ON CORRECT WAY TO DO THIS ////
   }
 
   render () {
