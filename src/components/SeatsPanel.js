@@ -20,7 +20,7 @@ class SeatsPanel extends Component {
   }
   handleClick(i) {
     const squares = this.state.seats.slice();
-    squares[i] = 'B';
+    squares[i] = 'Booked';
     this.setState({seats: squares});
   }
   renderSeats(i){
@@ -32,7 +32,7 @@ class SeatsPanel extends Component {
       <div>
           Please select your seat:
           <br />
-          
+
         <div className="board-row">
 
           {this.renderSeats(0)}
