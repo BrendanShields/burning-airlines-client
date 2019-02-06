@@ -19,8 +19,8 @@ class SearchFlight extends Component{
       seats: [],
       current_seats: [],
       current_flights: [],
-      origin: "",
-      destination: "",
+      origin: "Sydney",
+      destination: "Melbourne",
     }
 
     //function to retrieve the JSON data from rails API and process into arrays
@@ -43,18 +43,21 @@ class SearchFlight extends Component{
     this._handleDestinationInput = this._handleDestinationInput.bind(this);
     this._handleSumbit = this._handleSumbit.bind(this);
     this._activateLasers = this._activateLasers.bind(this);
-    this._handleClick = this._handleClick.bind(this);
     this.saveSeats = this.saveSeats.bind(this);
+    this._test = this._test.bind(this);
   }
+    _test(e){
+      console.log('worked')
+    }
     // Form Origin input handler
     _handleOriginInput(e){
-      console.log(e.target.value);
+
       this.setState({origin: e.target.value});
     }
 
     // Form Destination input handler
     _handleDestinationInput(e){
-      console.log(e.target.value);
+
       this.setState({destination: e.target.value});
     }
 
@@ -72,22 +75,31 @@ class SearchFlight extends Component{
       console.log(this.state.destination)
     }
 
-  _handleClick(seat_id){
-    this.saveSeats(seat_id);
-  };
-
   // UPDATES SEAT WITH USER_ID /////////////////////////////////////////////////
-  saveSeats(seat_id) {
-    console.log(seat_id);
-      axios.put(`https://burning-airlines-backend.herokuapp.com/seats/${seat_id}`,
+  saveSeats(e, seat_id, user_id, flight_id) {
+    e.preventDefault();
+    const URL = `https://burning-airlines-backend.herokuapp.com/seats/${seat_id}.json`
+    if ( user_id === 0 ) {
+      console.log("are we getting here?");
+      axios.put(URL,
       {
         id: seat_id,
         user_id: 1,
         seat_num: seat_id
-      }
-    ).then((results) => {
-      console.log(results)
-   });
+      }).then((results) => {
+      this._activateLasers(flight_id)
+    }).catch(console.warn())
+  } else {
+    console.log("Or here?");
+    axios.put(URL,
+    {
+      id: seat_id,
+      user_id: 0,
+      seat_num: seat_id
+    }).then((results) => {
+    this._activateLasers(flight_id)
+  }).catch((e) => console.warn("Cannot Update", e))
+    }
   };
 
   // WHEN USER CLICKS ON A FLIGHT, DISPLAYS ALL SEATS ON FLIGHT ////////////////
@@ -119,17 +131,17 @@ class SearchFlight extends Component{
         <input type="submit" className="searchButton" value="find flights!"/>
       </form>
 
-        {this.state.current_flights.map((s) =>
-          <div className="square" key={s.id}  onClick={() =>
-            this._activateLasers(s.id)}>
-              Flight {s.id}  From {s.origin} to {s.destination} on {s.date}
+        {this.state.current_flights.map((flight) =>
+          <div className="square" key={flight.id}  onClick={() =>
+            this._activateLasers(flight.id)}>
+              Flight {flight.id}  From {flight.origin} to {flight.destination} on {flight.date}
             </div>
           )}
 
           {this.state.current_seats.map( (s) =>
-          <div className="square" key={s.id} onClick={() =>
-            this._handleClick(s.id)}>Seat ID: {s.id} user_id: {s.user_id}
-          </div>
+          <button><div className={s.id} key={s.id} onClick={(e) => this.saveSeats(e, s.id, s.user_id, s.flight_id)}>
+              Seat ID: {s.id} user_id: {s.user_id}
+          </div></button>
         )}
      </div>
     )
