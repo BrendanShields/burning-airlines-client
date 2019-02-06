@@ -39,9 +39,35 @@ class SearchFlight extends Component{
     }
     fetchSeats();
     this._activateLasers = this._activateLasers.bind(this);
+    this._handleClick = this._handleClick.bind(this);
+    this.saveSeats = this.saveSeats.bind(this);
+
   }
 
+  _handleClick(flight_id){
+    // e.preventDefault();
+    this.saveSeats(flight_id);
+  };
 
+  saveSeats(seat_id) {
+    console.log(seat_id);
+    // .post("/api/Users", {
+    //             userFirstName: this.firstName.value,
+    //             userLastName: this.lastName.value,
+    //             userEmail: this.email.value,
+    //             userPassword: this.password1.value
+    //         })
+    axios.put(SEATS_URL ,
+      {
+        id: seat_id,
+        user_id: 1,
+        seat_num: seat_id
+      }
+    ).then((results) => {
+      console.log(results)
+     // this.setState({secrets: [...this.state.secrets, results.data] })
+   });
+  };
       _activateLasers(flight_seats){
 
         console.log(flight_seats)
@@ -71,14 +97,14 @@ class SearchFlight extends Component{
       <div>
 
     { this.state.flights.map( (s) =>
-    <div className="square" onClick={() => this._activateLasers(s.id)}>
+    <div className="square" key={s.id}  onClick={() => this._activateLasers(s.id)}>
     Flight {s.id}  From {s.origin} to {s.destination} on {s.date}
     </div> )}
+<hr />
 
-
-    <p>{ this.state.seats.map( (s) =>
-    <div className="square">Seat ID: {s.id}</div>
-  )}</p>
+    { this.state.current_seats.map( (s) =>
+    <div className="square" key={s.id} onClick={() => this._handleClick(s.id)}>Seat ID: {s.id} user_id: {s.user_id}</div>
+  )}
      </div>
 
    )
