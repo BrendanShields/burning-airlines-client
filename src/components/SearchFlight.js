@@ -57,7 +57,7 @@ class SearchFlight extends Component{
     //             userEmail: this.email.value,
     //             userPassword: this.password1.value
     //         })
-    axios.put(SEATS_URL ,
+      axios.put(`https://burning-airlines-backend.herokuapp.com/seats/${seat_id}`,
       {
         id: seat_id,
         user_id: 1,
