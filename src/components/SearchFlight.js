@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import '../App.css';
 /////////////////// IMPORT COMPONENTS //////////////////////////////////////////
-import Search from './Search'
-import List from './List'
+import Search from './Search';
+import List from './List';
+import Reservation from './Reservation';
 ////////////////// AXIOS SET UP ////////////////////////////////////////////////
 import axios from 'axios'
 const FLIGHTS_URL = 'https://burning-airlines-backend.herokuapp.com/flights.json';
@@ -19,6 +20,7 @@ class SearchFlight extends Component{
       seats: [],
       current_seats: [],
       current_flights: [],
+      current_users_flights: [],
       origin: "Sydney",
       destination: "Melbourne",
     }
@@ -77,9 +79,10 @@ class SearchFlight extends Component{
 
   // UPDATES SEAT WITH USER_ID /////////////////////////////////////////////////
   saveSeats(e, seat_id, user_id, flight_id) {
+
     e.preventDefault();
     const URL = `https://burning-airlines-backend.herokuapp.com/seats/${seat_id}.json`
-    if ( user_id === 0 ) {
+    if ( user_id === false ) {
       console.log("are we getting here?");
       axios.put(URL,
       {
@@ -87,7 +90,8 @@ class SearchFlight extends Component{
         user_id: 1,
         seat_num: seat_id
       }).then((results) => {
-      this._activateLasers(flight_id)
+        axios.get(SEATS_URL).then( (results) => {
+          this.setState({ seats: results.data })}).then(this._activateLasers(flight_id))
     }).catch(console.warn())
   } else {
     console.log("Or here?");
@@ -97,7 +101,8 @@ class SearchFlight extends Component{
       user_id: 0,
       seat_num: seat_id
     }).then((results) => {
-    this._activateLasers(flight_id)
+      axios.get(SEATS_URL).then( (results) => {
+        this.setState({ seats: results.data })}).then(this._activateLasers(flight_id))
   }).catch((e) => console.warn("Cannot Update", e))
     }
   };

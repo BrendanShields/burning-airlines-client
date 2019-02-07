@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SeatsPanel from './SeatsPanel';
 
 class Reservation extends Component{
   // constructor(){
@@ -15,7 +14,7 @@ class Reservation extends Component{
   render(){
     return(
       <div>
-      <SeatsPanel />
+
       </div>
     );
   }
