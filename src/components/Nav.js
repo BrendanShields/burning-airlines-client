@@ -1,13 +1,15 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
 
+
 import Home from './Home'
 import Search from './FlightSearch'
 import List from './List'
-
-
+import axios from 'axios'
+const USERS_URL = 'https://burning-airlines-backend.herokuapp.com/users.json'
 const Welcome = ({user, onSignOut})=> {
   // This is a dumb "stateless" component
+
   return (
     <div>
       Welcome <strong>User</strong>!
@@ -19,10 +21,10 @@ const Welcome = ({user, onSignOut})=> {
 class LoginForm extends React.Component {
   // Using a class based component here because we're accessing DOM refs
   handleSignIn(e) {
-    e.preventDefault()
     let username = this.refs.username.value
     let password = this.refs.password.value
     this.props.onSignIn(username, password)
+
   }
 
   render() {
@@ -44,20 +46,36 @@ class Nav extends Component {
     super(props)
     // the initial application state
     this.state = {
-      user: null
+      all_users: null,
+      login: []
     }
+
+    const fetchUsers = () => {
+      axios.get(USERS_URL).then( (results) => {
+        this.setState({ all_users: results.data })
+      });
+    }
+    fetchUsers();
   }
 
     // App "actions" (functions that modify state)
     signIn(username, password) {
-      // This is where you would call Firebase, an API etc...
-      // calling setState will re-render the entire app (efficiently!)
-      this.setState({
+     let x = false
+     const y = this.state.all_users.filter( (el, index) => {
+       if (el.username === username && el.password_digest === password) {
+       console.log('worked')
+       x = true
+      }
+     });
+     console.log(x)
+     console.log(this.state)
+    if(x === true){ this.setState({
         user: {
           username,
           password,
         }
       })
+      }
     }
 
     signOut() {

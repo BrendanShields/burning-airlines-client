@@ -131,13 +131,14 @@ class SearchFlight extends Component{
         <input type="submit" className="searchButton" value="find flights!"/>
       </form>
 
+      <div className="flights-wrap">
         {this.state.current_flights.map((flight) =>
           <div className="square" key={flight.id}  onClick={() =>
             this._activateLasers(flight.id)}>
               Flight {flight.id}  From {flight.origin} to {flight.destination} on {flight.date}
             </div>
           )}
-
+      </div>
           {this.state.current_seats.map( (s) =>
           <button><div className={s.id} key={s.id} onClick={(e) => this.saveSeats(e, s.id, s.user_id, s.flight_id)}>
               Seat ID: {s.id} user_id: {s.user_id}
