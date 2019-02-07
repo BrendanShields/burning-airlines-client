@@ -23,6 +23,7 @@ class SearchFlight extends Component{
       current_users_flights: [],
       origin: "Sydney",
       destination: "Melbourne",
+      message: ""
     }
 
     //function to retrieve the JSON data from rails API and process into arrays
@@ -47,6 +48,7 @@ class SearchFlight extends Component{
     this._activateLasers = this._activateLasers.bind(this);
     this.saveSeats = this.saveSeats.bind(this);
     this._test = this._test.bind(this);
+    this._handleClick = this._handleClick.bind(this);
   }
     _test(e){
       console.log('worked')
@@ -71,7 +73,7 @@ class SearchFlight extends Component{
     })
     this.setState({ current_seats: [] })
     this.setState({ current_flights: current_flights })
-
+    this.setState({ message: "" })
       console.log(current_flights)
       console.log(this.state.origin)
       console.log(this.state.destination)
@@ -90,6 +92,7 @@ class SearchFlight extends Component{
         user_id: 1,
         seat_num: seat_id
       }).then((results) => {
+        this.setState({message: `Seat ${seat_id} booked sucessfully for flight ${flight_id}`})
         axios.get(SEATS_URL).then( (results) => {
           this.setState({ seats: results.data })}).then(this._activateLasers(flight_id))
     }).catch(console.warn())
@@ -101,6 +104,7 @@ class SearchFlight extends Component{
       user_id: 0,
       seat_num: seat_id
     }).then((results) => {
+      this.setState({message: `Seat ${seat_id} booked sucessfully for flight ${flight_id}`})
       axios.get(SEATS_URL).then( (results) => {
         this.setState({ seats: results.data })}).then(this._activateLasers(flight_id))
   }).catch((e) => console.warn("Cannot Update", e))
@@ -117,6 +121,10 @@ class SearchFlight extends Component{
         this.setState({ current_seats: current_seats })
         console.log("state", this.state.current_seats)
       }
+      _handleClick(flight_id){
+           this.setState({message: ""})
+           this._activateLasers(flight_id);
+         }
 
   // RENDERS THE VIEW //////////////////////////////////////////////////////////
   render () {
@@ -139,7 +147,7 @@ class SearchFlight extends Component{
       <div className="flights-wrap">
         {this.state.current_flights.map((flight) =>
           <div className="square" key={flight.id}  onClick={() =>
-            this._activateLasers(flight.id)}>
+            this._handleClick(flight.id)}>
               Flight {flight.id}  From {flight.origin} to {flight.destination} on {flight.date}
             </div>
           )}
@@ -147,10 +155,11 @@ class SearchFlight extends Component{
       <hr />
       <div className="flex-container">
           {this.state.current_seats.map( (s) =>
-          <button><div className="grid-item" key={s.id} onClick={(e) => this.saveSeats(e, s.id, s.user_id, s.flight_id)}>
+          <button className={s.user_id === 0 ? "notbooked" : "booked"}><div className="grid-item" key={s.id} onClick={(e) => this.saveSeats(e, s.id, s.user_id, s.flight_id)}>
               Seat ID: {s.id} user_id: {s.user_id}
           </div></button>
         )}
+      <div className="msg">{this.state.message}</div>
         </div>
      </div>
     )

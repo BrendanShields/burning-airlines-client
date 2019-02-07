@@ -151,7 +151,18 @@ body{
 }
 
 .grid-item {
+  margin-bottom: 10px;
   position: relative;
   width: 25vw;
-  border: 1px solid grey;
+}
+
+.booked{
+ background-color: red;
+}
+.notbooked{
+ background-color: green;
+}
+
+.msg {
+  color: green;
 }
