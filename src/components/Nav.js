@@ -27,23 +27,59 @@ class LoginForm extends React.Component {
 
   }
 
+  // Using a class based component here because we're accessing DOM refs
+  // handleSignIn(e) {
+  //   e.preventDefault()
+  //   let username = this.refs.username.value
+  //   let password = this.refs.password.value
+  //   // let user = 0
+  //   const currentUser = this.state.users.filter( (el, index) => {
+  //     return el.username === username && el.password_digest === password;
+  //   });
+  //   if (currentUser.length > 0)
+  //   {
+  //     this.setState({ user: username });
+  //   }
+  //   console.log(username);
+  //
+  // }
+  //
+  // handleClick(e) {
+  //   e.preventDefault();
+  //   this.props.handleSignIn.
+  // }
+
+
   render() {
-    return (
-      <form onSubmit={this.handleSignIn.bind(this)}>
-        <h3>Sign in</h3>
-        <input type="text" ref="username" placeholder="enter you username" />
-        <input type="password" ref="password" placeholder="enter password" />
-        <input type="submit" value="Login" />
-      </form>
+    return ( <
+      form onSubmit = {
+        this.props.handleClick
+      } >
+      <
+      h3 > Sign in < /h3> <
+      input type = "text"
+      ref = "username"
+      placeholder = "enter you username"
+      required / >
+      <
+      input type = "password"
+      ref = "password"
+      placeholder = "enter password"
+      required / >
+      <
+      input type = "submit"
+      value = "Login" / >
+      <
+      /form>
     )
   }
-  }
+}
 
 
 class Nav extends Component {
 
   constructor(props) {
-    super(props)
+    super(props);
     // the initial application state
     this.state = {
       all_users: null,
@@ -77,14 +113,30 @@ class Nav extends Component {
       })
       }
     }
+    console.log(username);
 
-    signOut() {
-      // clear out user from state
-      this.setState({user: null})
-    }
+  }
+  // App "actions" (functions that modify state)
+  signIn(username, password) {
+    // This is where you would call Firebase, an API etc...
+    // calling setState will re-render the entire app (efficiently!)
+    this.setState({
+      user: {
+        username,
+        password,
+      }
+    })
+  }
+
+  signOut() {
+    // clear out user from state
+    this.setState({
+      user: null
+    })
+  }
 
 
-  render () {
+  render() {
     return (
 
       <div>
@@ -92,16 +144,21 @@ class Nav extends Component {
         {
   < SearchFlight />
         }
+        />
+      }
 
 
-      <div>
-      <Link to="/">home </Link>
-      <Link to="/search">search </Link>
-      <Link to="/list">list </Link>
+      <
+      div >
+      <
+      Link to = "/" > home < /Link> <
+      Link to = "/search" > search < /Link> <
+      Link to = "/list" > list < /Link>
 
 
-      </div>
-      </div>
+      <
+      /div> <
+      /div>
     )
   }
 }
