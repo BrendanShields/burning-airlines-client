@@ -90,15 +90,7 @@ class Nav extends Component {
       <div>
         <h1>My cool App</h1>
         {
-          (this.state.user) ?
-            <Welcome
-             user={this.state.user}
-             onSignOut={this.signOut.bind(this)}
-            />
-          :
-            <LoginForm
-             onSignIn={this.signIn.bind(this)}
-            />
+  < SearchFlight />
         }
 
 
