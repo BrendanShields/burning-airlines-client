@@ -12,7 +12,7 @@ const Welcome = ({user, onSignOut})=> {
 
   return (
     <div>
-      Welcome <strong>User</strong>!
+      Welcome <strong>{user.username}</strong>!
       <a href="javascript:;" onClick={onSignOut}>Sign out</a>
     </div>
   )
@@ -46,6 +46,7 @@ class Nav extends Component {
     super(props)
     // the initial application state
     this.state = {
+      user: null,
       all_users: null,
       login: []
     }
@@ -92,22 +93,14 @@ class Nav extends Component {
           (this.state.user) ?
             <Welcome
              user={this.state.user}
-             onSignOut={this.signOut.bind(this)}
+             onSignOut={this.signOut.bind(this)
+             }
             />
           :
             <LoginForm
              onSignIn={this.signIn.bind(this)}
             />
         }
-
-
-      <div>
-      <Link to="/">home </Link>
-      <Link to="/search">search </Link>
-      <Link to="/list">list </Link>
-
-
-      </div>
       </div>
     )
   }
